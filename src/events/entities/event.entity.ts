@@ -9,7 +9,7 @@ export class Event extends Document {
     @Prop({ index: true }) // index da collection
     name: string
 
-    @Prop(SchemaTypes.Mixed)
+    // @Prop(SchemaTypes.Mixed)
     payload: Record<string, any>
 }
 
