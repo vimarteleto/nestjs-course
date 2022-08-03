@@ -1,0 +1,2 @@
+export const COFFEE_BRANDS = 'COFFEE_BRANDS'
+export const COFFEE_BRANDS_TWO = 'COFFEE_BRANDS_TWO'

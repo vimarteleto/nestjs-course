@@ -1,8 +1,9 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
+import { COFFEE_BRANDS, COFFEE_BRANDS_TWO } from './coffees.constants';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
@@ -12,8 +13,12 @@ export class CoffeesService {
 
   constructor(
     @InjectModel(Coffee.name) private readonly coffeeModel: Model<Coffee>,
+    @InjectModel(Event.name) private readonly eventModel: Model<Event>,
     @InjectConnection() private readonly connection: Connection,
-    @InjectModel(Event.name) private readonly eventModel: Model<Event>
+
+    // exemplos de injeção de dependencias
+    @Inject(COFFEE_BRANDS) coffeeBrands: string[], // injetando dependencias de outras formas
+    @Inject(COFFEE_BRANDS_TWO) coffeeBrandsTwo: string[] // injetando dependencias de outras formas
   ) {}
 
   create(createCoffeeDto: CreateCoffeeDto) {
