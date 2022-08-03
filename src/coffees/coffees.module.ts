@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Coffee, CoffeeSchema } from './entities/coffee.entity';
 import { Event, EventSchema } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS, COFFEE_BRANDS_TWO } from './coffees.constants';
+import { ConfigModule } from '@nestjs/config';
 
 // classes de exemplo para ilustrar diferentes formas de custom providers
 class MockCoffeesService {}
@@ -22,6 +23,7 @@ export class CoffeeBrandsFactory {
 
 @Module({
   imports: [
+    ConfigModule,
     MongooseModule.forFeature([
       {
         name: Coffee.name,
