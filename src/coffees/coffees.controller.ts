@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query, SetMetadata, ParseIntPipe } from '@nestjs/common';
+import { Protocol } from 'src/common/decorators/protocol.decorator';
+import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
@@ -13,8 +15,11 @@ export class CoffeesController {
     return this.coffeesService.create(createCoffeeDto);
   }
 
+  @Public() // custom decorator, verificado no guard
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
+  async findAll(@Protocol('teste') protocol, @Query() paginationQuery: PaginationQueryDto) {
+    console.log(protocol); // resultado retornado do decorator
+    // await new Promise(resolve => setTimeout(resolve, 5000)) // teste feito para timeout.interceptor.ts
     return this.coffeesService.findAll(paginationQuery);
   }
 

@@ -26,9 +26,23 @@ export class CoffeesService {
     return coffee.save()
   }
 
-  findAll(paginationQuery: PaginationQueryDto) {
+  async findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery
     return this.coffeeModel.find().skip(offset).limit(limit).exec();
+
+
+    // para retorno com dados de paginação:
+    const data = await this.coffeeModel.find().skip(offset).limit(limit).exec();
+    const total = await this.coffeeModel.count().exec()
+
+    return {
+      data,
+      pagination: {
+        total,
+        offset: offset || 0,
+        limit,
+      }
+    }
   }
 
   async findOne(id: string) {

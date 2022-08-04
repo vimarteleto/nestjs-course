@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { ConfigModule } from '@nestjs/config';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { ConfigModule } from '@nestjs/config';
     }),
     ConfigModule.forRoot(), // npm install @nestjs/config // configurações de ambiente no .env
     CoffeesModule,
-    CoffeeRatingModule
+    CoffeeRatingModule,
+    CommonModule // esse modulo foi feito para instanciar o guard com argumentos no constructor
   ],
   controllers: [AppController],
   providers: [AppService],
