@@ -6,6 +6,7 @@ import { Coffee, CoffeeSchema } from './entities/coffee.entity';
 import { Event, EventSchema } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS, COFFEE_BRANDS_TWO } from './coffees.constants';
 import { ConfigModule } from '@nestjs/config';
+import { CommonModule } from 'src/common/common.module';
 
 // classes de exemplo para ilustrar diferentes formas de custom providers
 class MockCoffeesService {}
@@ -24,6 +25,7 @@ export class CoffeeBrandsFactory {
 @Module({
   imports: [
     ConfigModule,
+    CommonModule,
     MongooseModule.forFeature([
       {
         name: Coffee.name,
@@ -50,7 +52,7 @@ export class CoffeeBrandsFactory {
     },
   ],
   // providers: [{provide: CoffeesService, useValue: new MockCoffeesService()}],  // para alterar a classe a ser instanciada nos providers, preservando o nome original
-  exports: [CoffeesService] // é necessario exportar um modulo para ser chamado em outros modulos
+  exports: [CoffeesService] // é necessario exportar um provider para ser chamado em outros modulos
 })
 export class CoffeesModule {}
 
